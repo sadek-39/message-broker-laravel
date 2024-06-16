@@ -9,8 +9,9 @@ class LogController extends Controller
     public function sendLog()
     {
         $message = "Hello I am the log for rabbit mq";
-        LogJob::dispatch($message);
-
+        for ($i = 0; $i < 20; $i++) {
+            LogJob::dispatch($message);
+        }
         return response()->json(['status'=>'Job dispatched']);
     }
 }

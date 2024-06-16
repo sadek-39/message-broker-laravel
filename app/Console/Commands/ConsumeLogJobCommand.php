@@ -46,20 +46,27 @@ class ConsumeLogJobCommand extends Command
             $callback = function ($message) {
                 Log::debug("Received message: {$message->getBody()}");
                 echo "Received message: ", $message->getBody(), "\n";
+                $message->ack();
+
             };
+
+            $limit = 2;
+            $count = 0;
 
             $channel->queue_declare(env('RABBITMQ_QUEUE'), false, true, false, false);
 
             $channel->basic_consume(env('RABBITMQ_QUEUE'), '', false, false, false, false, $callback);
 
-            while (true) { // Changed to infinite loop
+            while ($count < $limit) {
                 $channel->wait();
+                $count++;
             }
+
         } catch (\Exception $exception) {
             Log::error("Failed to consume messages: {$exception->getMessage()}");
         } finally {
             $channel->close();
-            $connection->close(); // Moved outside the loop
+            $connection->close();
         }
 
     }
