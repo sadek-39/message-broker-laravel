@@ -19,4 +19,5 @@ Route::get('/', function () {
 });
 
 Route::get('/send-log', [LogController::class, 'sendLog']);
+Route::get('/send-pub-sub', [LogController::class, 'sendPub']);
 

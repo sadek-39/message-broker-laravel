@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('app:consume')->everyMinute();
+        $schedule->command('app:consume-pub-sub-model-command')->everyMinute();
         // $schedule->command('inspire')->hourly();
     }
 
