@@ -1,0 +1,10 @@
+syntax = "proto3";
+option php_namespace = "Proto";
+option php_metadata_namespace = "GPBMetadata";
+
+message WelcomeMessage {
+   string type = 1;
+   string payload = 2;
+   string uuid = 3;
+   string queue = 4;
+}
